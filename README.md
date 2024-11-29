@@ -1,0 +1,1 @@
+Repository for The Odin project intermediate JavaScript projects.
