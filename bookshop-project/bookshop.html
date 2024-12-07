@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../../InterHtmlCss/normalization-reset-css/css-reset.css">
+  <link rel="stylesheet" href="../../InterHtmlCss/normalization-reset-css/modern_normalize.css">
+  <link rel="stylesheet" href="bookshop.css">
+</head>
+<body>
+  <div id="content">
+    <div id="title-panel">
+      <h1>Your Bookshop</h1>
+      <button id="open-dialog">Add New Book</button>
+    </div>
+    <table id="book-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Number of Pages</th>
+          <th>Has been read</th>
+          <th>Remove Book</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Table rows injected here -->
+      </tbody>
+    </table>  
+  </div>
+  <dialog id="form-section">
+    <h2>Add Another Book</h2>
+    
+    <form method="dialog">
+      <label for="title">Book Title</label>
+      <input type="text" name="title" id="title" required>
+      <label for="author">Book Author</label>
+      <input type="text" name="author" id="author" required>
+      <label for="pages">Number of Pages</label>
+      <input type="number" name="pages" id="pages" min="10" max="2000" value="50" required>
+      <div>
+        <input type="checkbox" id="haveRead" name="haveRead">
+        <label for="haveRead">I have read this book</label>
+      </div>
+      <button type="submit" id="add-new-book">Add New Book</button>
+    </form>
+  </dialog>
+  <script src="bookshop.js"></script>
+</body>
+</html>

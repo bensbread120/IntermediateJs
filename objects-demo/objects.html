@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  
+</head>
+<body>
+  <h1>objects test</h1>
+  <script>
+    "use strict";
+    
+    function Hamster() {
+      this.stomach = [];
+      this.eat = function(food) {
+        this.stomach.push(food);
+      }
+    };
+    
+    function Speedy() {
+      Hamster.call(this);
+    }
+
+    function Lazy() {
+      Hamster.call(this);
+    }
+
+    Object.setPrototypeOf(Speedy.prototype, Hamster.prototype);
+    Object.setPrototypeOf(Lazy.prototype, Hamster.prototype);
+
+    let speedy = new Speedy();
+    let lazy = new Lazy();
+
+    speedy.eat("apple");
+    
+    console.log(speedy.stomach); // apple
+    console.log(lazy.stomach);   // empty array ([])
+
+    </script>
+  <script src="objects.js"></script>
+</body>
+</html>
