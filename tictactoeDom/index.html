@@ -3,15 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <link rel="stylesheet" href="../../InterHtmlCss/normalization-reset-css/css-reset.css">
+  <link rel="stylesheet" href="../../InterHtmlCss/normalization-reset-css/modern_normalize.css">
+  <link rel="stylesheet" href="styles.css">
   <title>Document</title>
 </head>
 <body>
-  <button id="reset-button">RESET GAME</button>
-  <Table id="gameBoard">
+  <div id="game-container">
+    <h1>TIC TAC TOE</h1>
+    <p id="game-text"></p>
+    <button id="reset-button">RESET GAME</button>
+    <div id="game-board">
+      <!-- game board injected using js -->
+    </div>
+  </div>
 
-  </Table>
-  
   <script src="script.js"></script>
 </body>
 </html>

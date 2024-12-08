@@ -1,4 +1,46 @@
-table {
-  width: 20%;
-  height: 20%;
+#game-board {
+  width: 50%;
+  height: 70%;
+  margin: 10%;
+  display: grid;
+  place-items: center;
+  background-color: black;
+  gap: 5px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+#game-text {
+  height: 24px;
+}
+
+#game-container {
+  width: 40%;
+  padding: 2%;
+  background-color: rgb(0, 184, 184);
+  border-radius: 20px;
+  display: grid;
+  /* grid-template-rows: 10% 10% 10% 70%; */
+  place-items: center;
+}
+
+body {
+  margin: 0;
+  display: grid;
+  place-items: center; /* Centers content horizontally and vertically */
+  height: 100vh;
+}
+
+.board-cell {
+  width: 100%;
+  height: 100%;
+  box-shadow: none;
+  background-color: rgb(0, 184, 184);
+}
+
+#reset-button {
+  font-size: 100%;
+  width: 10%;
+  border-radius: 10px;
+  background-color: rgb(175, 187, 1);
 }

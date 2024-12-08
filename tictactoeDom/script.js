@@ -1,22 +1,25 @@
 function createGame () {
   let playing = true;
   let moveCount = 0;
-  let defaultValue = "D";
+  let defaultValue = "-";
   let boardDims = 3;
   let currentTurn = Math.floor(Math.random() * 2); // random selection of 0 or 1
   let players = [createPlayer("Ben", "X"), createPlayer("Katrina", "O")];
   let board = createGameBoard(boardDims, defaultValue);
+  let gameText = document.getElementById("game-text");
 
   function nextmove (player, x, y) {
     if (playing) {
+      gameText.textContent = "     ";
       if (board.gameBoard[x][y] == defaultValue) {
         moveCount++;
-        if (board.addSymbol(player.getSymbol(), x, y)) {
-          console.log(`congratulations ${players[currentTurn].getName()}.`);
+        let winText = board.addSymbol(player.getSymbol(), x, y);
+        if (winText) {
+          gameText.textContent = `${winText}. congratulations ${players[currentTurn].getName()}.`;
           playing = false;
         }
         else if (moveCount == 9) {
-          console.log("That's a draw, Thanks for playing.");
+          gameText.textContent = "That's a draw, Thanks for playing.";
           playing = false;
         }
         board.print();
@@ -24,39 +27,35 @@ function createGame () {
         currentTurn = currentTurn == 0 ? 1 : 0;
       }
       else {
-        console.log("That place has already been selected.")
+        gameText.textContent = " That place has already been selected.";
       }
     }
     else {
-      console.log("Sorry Game over. Select Reset to start again.")
+      gameText.textContent = "Sorry Game over. Select Reset to start again.";
     }
   }
 
   function printBoardToWebpage() {
-    const htmlBoard = document.getElementById("gameBoard");
+    const htmlBoard = document.getElementById("game-board");
     htmlBoard.innerHTML = "";
     
     let x = 0;
 
     for (let row of board.gameBoard) {
-      const tableRow = document.createElement("tr");
       let y = 0;
       for (let col of row) {
-        const cell = document.createElement("td");
-        const button = document.createElement("button");
-        
-        button.textContent = col;
-        
-        button.addEventListener("click", (function(x, y) {
+        const cell = document.createElement("button");
+        cell.className = "board-cell";
+        cell.textContent = col;
+        cell.addEventListener("click", (function(x, y) {
           return function() {
               nextmove(players[currentTurn], x, y);
           };
         })(x, y));
-        cell.appendChild(button);
-        tableRow.appendChild(cell);
+      
+        htmlBoard.appendChild(cell);
         y++;
       }
-      htmlBoard.appendChild(tableRow);
       x++;
     }
   }
@@ -65,6 +64,7 @@ function createGame () {
     const resetbtn = document.getElementById("reset-button");
     resetbtn.addEventListener("click", function () {
       board = createGameBoard(boardDims, defaultValue);
+      gameText.textContent = "";
       gameInit();
     })
     playing = true;
@@ -123,14 +123,11 @@ function createGameBoard (dimensions, defaultValue) {
         revDiag = false;
       }
     }
-    if (horz || vert || diag || revDiag) {
-      if (horz) console.log(`You won by horizontal on row: ${x}`);
-      if (vert) console.log(`You won by Vertical on column: ${y}`);
-      if (diag) console.log("You won by diagonal.");
-      if (revDiag) console.log("You won  by reverse diagonal");
-      return true;
-    }
-    return false;
+    if (horz) return `You won by horizontal on row: ${x}`;
+    if (vert) return `You won by Vertical on column: ${y}`;
+    if (diag) return "You won by diagonal.";
+    if (revDiag) return "You won  by reverse diagonal";
+    return "";
   }
 
   return {gameBoard, print, addSymbol, checkWin};
