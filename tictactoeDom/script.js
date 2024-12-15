@@ -18,16 +18,19 @@ function createGame () {
           gameText.textContent = `${winText}. congratulations ${players[currentTurn].getName()}.`;
           playing = false;
         }
-        else if (moveCount == 9) {
+        else if (moveCount == boardDims * boardDims) {
           gameText.textContent = "That's a draw, Thanks for playing.";
           playing = false;
         }
         board.print();
         printBoardToWebpage();
         currentTurn = currentTurn == 0 ? 1 : 0;
+        if (playing) {
+          gameText.textContent = `Nice move, now it's ${players[currentTurn].getName()}'s turn.`;
+        }
       }
       else {
-        gameText.textContent = " That place has already been selected.";
+        gameText.textContent = "That place has already been selected.";
       }
     }
     else {
@@ -67,11 +70,12 @@ function createGame () {
       gameText.textContent = "";
       gameInit();
     })
+    players[0].setName(prompt("Please enter name for Player one:"));
+    players[1].setName(prompt("Please enter name for player two:"));
     playing = true;
     moveCount = 0;
     currentTurn = Math.floor(Math.random() * 2); 
-    console.log(`player ${players[currentTurn].getName()} will go first.`);
-    console.log(players[1].getName());
+    gameText.textContent = `player ${players[currentTurn].getName()} will go first.`;
     board.print();
     printBoardToWebpage();
   }
@@ -137,8 +141,9 @@ function createGameBoard (dimensions, defaultValue) {
 function createPlayer (name, symbol) {
   const getSymbol = () => symbol;
   const getName = () => name;
+  const setName = (newName) => name = newName;
   
-  return {getName, getSymbol};
+  return {getName, setName, getSymbol};
 }
 
 let game = createGame();
